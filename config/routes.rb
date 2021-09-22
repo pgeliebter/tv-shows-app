@@ -22,4 +22,12 @@ Rails.application.routes.draw do
   post "/shows" => "shows#create"
   patch "/shows/:id" => "shows#update"
   delete "/shows/:id" => "shows#destroy"
+
+  ## Genres
+
+  get "/genres" => "genres#index"
+  get "/genres/:id" => "genres#show"
+  post "/genres" => "genres#create"
+  patch "/genres/:id" => "genres#update"
+  delete "/genres/:id" => "genres#destroy"
 end
