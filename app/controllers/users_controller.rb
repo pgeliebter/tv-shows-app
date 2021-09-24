@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   def index
     users = User.all
-    render json: users.as_json
+    render json: users
   end
 
   def create
@@ -11,13 +11,16 @@ class UsersController < ApplicationController
       password: params[:password],
       password_confirmation: params[:password_confirmation],
     )
-    user.save
-    render json: user.as_json
+    if user.save
+      render json: { message: "User created successfully" }, status: :created
+    else
+      render json: { errors: user.errors.full_messages }, status: :bad_request
+    end
   end
 
   def show
     user = User.find_by(id: params[:id])
-    render json: user.as_json
+    render json: user
   end
 
   def update
@@ -26,7 +29,7 @@ class UsersController < ApplicationController
     user.email = params[:email] || user.email
     user.password_confirmation = params[:password_confirmation] || user.password_confirmation
     user.save
-    render json: user.as_json
+    render json: user
   end
 
   def destroy
